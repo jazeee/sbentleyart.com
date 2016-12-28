@@ -12,17 +12,17 @@ angular.module("banner").directive('banner'
 					link: SiteService.getUrl()
 					to: 1425182015
 				)
-			
+
 			scope.goToFacebookSite = SiteService.goToFacebookSite
-			
+
 			scope.artDealOfTheDay = ArtPiecesService.artDealOfTheDay
-			
+
 			scope.randomArtPiece = ArtPiecesService.randomArtPiece
-			
+
 			scope.getLowResPathAsUrl = ArtPiecesService.getLowResPathAsUrl
-			
+
 			scope.artPieceOfTheDayAsUrl = ArtPiecesService.getLowResPathAsUrl(ArtPiecesService.artDealOfTheDay)
-			
+
 			scope.goToArtPiece = ArtPiecesService.goToArtPiece
 	}
 )

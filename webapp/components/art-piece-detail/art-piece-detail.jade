@@ -21,12 +21,16 @@
 			)
 				span.price
 					| {{artPiece.price | currency}}
-				span
-					| See Deal Price
-		span(
-			ng-hide="artPiece.price > 0"
+		a.facebook-highlight.banner-button(
+			ng-click="goToArtPiece(randomArtPiece)"
 		)
-			| Status: {{artPiece.price}}
+			.banner-well
+				.banner-well-background(
+					ng-style="{'background-image': getLowResPathAsUrl(randomArtPiece)}"
+				)
+				.banner-well-overlay
+					span
+						img.banner-overlay(src="../images/random-art-piece-overlay.svg")
 		.facebook-comments
 			fb:comments(
 				href="{{getUrl()}}" 
@@ -56,7 +60,7 @@
 						p.form-control-static
 							| {{originalPrice | currency}}
 				.form-group.form-group-lg(
-					ng-class="{'has-error': !discountPercent || discountPercent <0 || discountPercent > 40}"
+					ng-class="{'has-error': discountPercent == undefined || discountPercent <0 || discountPercent > 40}"
 				)
 					label.col-sm-4.control-label Name your % Off
 					.col-sm-8.input-group
@@ -105,6 +109,7 @@
 			buy-art-piece(
 				art-piece="artPiece"
 				price="discountedPrice"
+				shipping-cost="shippingCost"
 				savings="savings"
 			)
 			.close-button

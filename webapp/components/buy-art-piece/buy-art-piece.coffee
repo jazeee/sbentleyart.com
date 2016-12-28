@@ -8,6 +8,7 @@ angular.module('buy-art-piece').directive('buyArtPiece'
 			artPiece: '='
 			price: '='
 			savings: '='
+			shippingCost: '='
 		link: (scope, element, attributes) ->
 	}
 )

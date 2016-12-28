@@ -6,10 +6,15 @@
 			width: 100%;
 		}
 	}
+	.banner-button {
+		display: block;
+		.banner-button-style();
+		margin: 10px auto;
+	}
 	.art-piece-information {
 		position: fixed;
-		max-width: 400px;
-		min-width:300px;
+		width: 20vw;
+		min-width: 250px;
 		right: 25px;
 		top: 85px;
 		padding: 10px;
@@ -24,9 +29,9 @@
 	}
 	.art-piece-purchase {
 		position: absolute;
-		max-width: 600px;
-		min-width:500px;
-		right: 90%;
+		width: 25vw;
+		min-width: 300px;
+		right: 100%;
 		top: 15px;
 		padding: 20px;
 		background-color: rgba(255,255,255,0.9);
@@ -53,7 +58,6 @@
 			width: 100%;
 			font-size: 1.5em;
 			span.price{
-				text-decoration: line-through;
 				padding-right: 5px;
 			}
 		}

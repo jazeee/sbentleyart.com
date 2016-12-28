@@ -8,6 +8,7 @@ try
 	glob = require('glob')
 	commandLineArguments = require('yargs').argv
 	gulpFilter = require('gulp-filter')
+	liveReloadServer = require('tiny-lr')()
 	gulpif = require('gulp-if')
 	{
 		util
@@ -28,6 +29,11 @@ try
 catch error
 	console.error error
 	process.exit(1)
+
+liveReloadPort = 35799
+state =
+	useSourceMaps: false
+	shouldEmbedLiveReload: false
 
 paths =
 	gulpconfig : ["./gulpfile.coffee", "./package.json"]
@@ -50,6 +56,12 @@ paths =
 
 getPath = (pathId) ->
 	paths[pathId] ? throw Error("\nUnknown path ID `#{pathId}`")
+# `rm -rf` the given pathId, synchronously.
+# Sync is needed because I can't find a way to block more than 1 level deep as gulp.run is deprecated
+# and gulp.start replaces the current running task queue.  So `dev -> build -> clean` won't work, instead
+# we rely on the 'clean' task running first and the remove running sync.
+removeAll = (pathId) ->
+	removeRecursively.sync(getPath(pathId))
 
 {log} = util
 {red, green} = util.colors
@@ -79,17 +91,19 @@ compileJade = ->
 compileLess = ->
 	logErrors(less())
 
+# Send the piped asset to livereload based on state
 reload = ->
-	gulpif( true, )
+	gulpif(state.shouldEmbedLiveReload, livereload(liveReloadServer))
 
 task "html-pages", ->
 	src('pages')
 		.pipe(plumber())
 		.pipe(compileJade())
 		.pipe(rename(extname: '.html'))
-		.pipe(embedlr())
+		.pipe gulpif state.shouldEmbedLiveReload, embedlr({port: liveReloadPort})
 		.pipe(dest('destPages'))
-		.pipe(livereload({auto: false}))
+		.pipe wait 1500
+		.pipe reload()
 
 task "html-components", ->
 	src('componentPages')
@@ -98,7 +112,7 @@ task "html-components", ->
 		.pipe(rename(extname: '.html'))
 		.pipe(angularTemplatecache(standalone:true, module: 'webappTemplates'))
 		.pipe(dest('destTemplates'))
-		.pipe(livereload({auto: false}))
+		.pipe reload()
 
 task "coffee", ->
 	src('coffee')
@@ -106,7 +120,7 @@ task "coffee", ->
 		.pipe(compileCoffee())
 		.pipe(concat('app.js'))
 		.pipe(dest('destCoffee'))
-		.pipe(livereload({auto: false}))
+		.pipe reload()
 
 task "less", ->
 	src('componentsLess')
@@ -115,7 +129,7 @@ task "less", ->
 		.pipe(compileLess())
 		.pipe(concat('app.css'))
 		.pipe(dest('destLess'))
-		.pipe(livereload({auto: false}))
+		.pipe reload()
 
 task "start-web-server", ->
 	webServerConfig = ecstatic(
@@ -131,10 +145,17 @@ task 'watch', ->
 	gulp.watch(getPath('componentsLess'), ["less"])
 
 task "start-livereload-server", ->
-	livereload.listen()
+	liveReloadServer.listen(liveReloadPort)
+
+task 'clean', ->
+	removeAll("destCoffee")
+	removeAll("destLess")
 
 task 'development', ->
+	state.useSourceMaps = true
+	state.shouldEmbedLiveReload = true
 	gulp.start(
+		'clean'
 		"start-web-server"
 		"start-livereload-server"
 		'html-pages'
@@ -143,5 +164,17 @@ task 'development', ->
 		'less'
 		'watch'
 	)
+
+task "build-tasks", [
+	'clean'
+	'html-pages'
+	'html-components'
+	'coffee'
+	'less'
+]
+
+task "build", ->
+	state.isMinifying = true
+	gulp.start("build-tasks")
 
 task "default", ['development']

@@ -20,25 +20,34 @@
 	}
 }
 
+.banner-button-style() {
+	position: relative;
+	margin: 10px 20px;
+	width: 150px;
+	height: 100px;
+	.banner-well-overlay img{
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
+	color: #666;
+	font-weight: bold;
+	.background-linear-gradient(@banner-highlight-background);
+	border: 2px solid darken(@banner-highlight-background, 30%);
+	border-radius: 5px;
+	cursor: pointer;
+	&:hover {
+		box-shadow: 1px 1px 5px 3px @banner-highlight-background;
+	}
+}
+
 .banner-highlights {
 	position: absolute;
 	bottom: 25px;
 	right: 25px;
 	.banner-highlight {
-		position: relative;
 		float: right;
-		margin: 10px 20px;
-		width: 150px;
-		height: 100px;
-		color: #666;
-		font-weight: bold;
-		.background-linear-gradient(@banner-highlight-background);
-		border: 2px solid darken(@banner-highlight-background, 30%);
-		border-radius: 5px;
-		cursor: pointer;
-		&:hover {
-			box-shadow: 1px 1px 5px 3px @banner-highlight-background;
-		}
+		.banner-button-style();
 	}
 	.banner-well {
 		.full-stretch;

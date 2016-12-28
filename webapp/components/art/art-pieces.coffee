@@ -38,7 +38,6 @@ angular.module('art').constant('artPiecesResource'
 			widthInInches: 38
 			heightInInches: 50
 			depthInInches: 4
-			media: "Oil and encaustic on canvas with wood framing"
 			"tags" : ""
 		},{
 			"name" : "Butterfly",
@@ -799,24 +798,28 @@ angular.module('art').constant('artPiecesResource'
 )
 angular.module('art').service('ArtPiecesService'
 (artPiecesResource, DateUtil, $state) ->
+	discountPercent = 0.5
+	for artPiece in artPiecesResource
+		if artPiece.price?
+			artPiece.price *= discountPercent
 	class ArtPiecesService
 		constructor: ->
 			@artDealOfTheDay = @getDealOfTheDay()
 			@dealOfTheDayDiscountInHundredsPercent = 40
 			@randomArtPiece = @getRandomArtPiece()
-			
+
 		getGalleryArtPieces: (galleryId) ->
 			artPieces = []
 			for artPiece in artPiecesResource
 				if artPiece.galleryId == galleryId
 					artPieces.push(artPiece)
 			artPieces
-		
+
 		getArtPiece: (galleryId, artPieceId) ->
 			for artPiece in artPiecesResource
 				if artPiece.galleryId == galleryId && artPiece.filename == artPieceId
 					return artPiece
-		
+
 		getArtPiecesForSale: (galleryId) ->
 			artPieces = []
 			for artPiece in artPiecesResource
@@ -824,7 +827,7 @@ angular.module('art').service('ArtPiecesService'
 					if !galleryId? || artPiece.galleryId == galleryId
 						artPieces.push(artPiece)
 			artPieces
-			
+
 		getDealOfTheDay: ->
 			smallPrimeNumber = 8191
 			primeNumber = 7919
@@ -833,36 +836,39 @@ angular.module('art').service('ArtPiecesService'
 			artDealOfTheDay = artPieces[indexOffset % artPieces.length]
 			#console.log "Deal of the Day: ", artDealOfTheDay
 			artDealOfTheDay
-		
+
 		getRandomArtPiece: ->
 			index = Math.floor(Math.random() * artPiecesResource.length)
 			artPiecesResource[index]
-			
+
 		getLowResPath: (artPiece) =>
 			"images/LowRes/#{artPiece.galleryId}LowRes/#{artPiece.filename}"
-			
+
 		getLowResPathAsUrl: (artPiece) =>
 			"url('../" + @getLowResPath(artPiece) + "')"
-			
-		goToArtPiece: (artPiece) ->
+
+		goToArtPiece: (artPiece) =>
+			@randomArtPiece = @getRandomArtPiece()
+			while @randomArtPiece.filename == artPiece.filename
+				@randomArtPiece = @getRandomArtPiece()
 			$state.go("artPieceDetail"
 				galleryId: artPiece.galleryId
 				artPieceId: artPiece.filename
 			)
-		
+
 		isDealOfTheDay: (artPiece) =>
-			return artPiece == @artDealOfTheDay
-		
+			return false #artPiece == @artDealOfTheDay
+
 		getArtPieceDiscount: (artPiece) =>
-			return @dealOfTheDayDiscountInHundredsPercent if @isDealOfTheDay(artPiece)
-			return 20
+			#return @dealOfTheDayDiscountInHundredsPercent if @isDealOfTheDay(artPiece)
+			return 0
 
 	return new ArtPiecesService()
 )
 
 angular.module('art').controller('ArtPieces'
 ($scope, $stateParams, ArtPiecesService, GalleriesService) ->
-	
+
 	$scope.galleryId = $stateParams.galleryId
 	$scope.gallery = GalleriesService.getGallery($scope.galleryId)
 	$scope.artPieces = ArtPiecesService.getGalleryArtPieces($scope.galleryId)
