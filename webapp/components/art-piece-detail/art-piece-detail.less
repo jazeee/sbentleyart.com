@@ -1,0 +1,66 @@
+.art-piece-detail {
+	position: relative;
+	.background-image {
+		margin-bottom: 25px;
+		img {
+			width: 100%;
+		}
+	}
+	.art-piece-information {
+		position: fixed;
+		max-width: 400px;
+		min-width:300px;
+		right: 25px;
+		top: 85px;
+		padding: 10px;
+		background-color: rgba(255,255,255,0.6);
+		border-radius: 8px;
+		.box-shadow(20px, #444);
+		.title {
+			width: 100%;
+			text-align: center;
+			font-weight: bold;
+		}
+	}
+	.art-piece-purchase {
+		position: absolute;
+		max-width: 600px;
+		min-width:500px;
+		right: 90%;
+		top: 15px;
+		padding: 20px;
+		background-color: rgba(255,255,255,0.9);
+		border-radius: 8px;
+		.box-shadow(30px, #000);
+		.title {
+			width: 100%;
+			text-align: center;
+			font-weight: bold;
+		}
+		.art-purchase-form{
+		}
+		.close-button{
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+	}
+	.button-actions {
+		.share-art-piece {
+			float: left;
+		}
+		.show-pricing {
+			width: 100%;
+			font-size: 1.5em;
+			span.price{
+				text-decoration: line-through;
+				padding-right: 5px;
+			}
+		}
+	}
+	.facebook-comments {
+		margin-top: 20px;
+	}
+	.buy-art-piece {
+	}
+}

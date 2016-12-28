@@ -1,0 +1,96 @@
+@banner-height: 500px;
+@banner-highlight-background: #f3b47a;
+
+.banner {
+	position: relative;
+	height: @banner-height;
+}
+
+.banner-image-panel {
+	position: absolute;
+	left: 0;
+	right: 0;
+	.banner-image {
+		background-color: black;
+		background-image: url("../images/banner-image.jpg");
+		width: 100%;
+		height: @banner-height;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+}
+
+.banner-highlights {
+	position: absolute;
+	bottom: 25px;
+	right: 25px;
+	.banner-highlight {
+		position: relative;
+		float: right;
+		margin: 10px 20px;
+		width: 150px;
+		height: 100px;
+		color: #666;
+		font-weight: bold;
+		.background-linear-gradient(@banner-highlight-background);
+		border: 2px solid darken(@banner-highlight-background, 30%);
+		border-radius: 5px;
+		cursor: pointer;
+		&:hover {
+			box-shadow: 1px 1px 5px 3px @banner-highlight-background;
+		}
+	}
+	.banner-well {
+		.full-stretch;
+		display: table;
+		width: 100%;
+		height: 100%;
+		.banner-well-overlay {
+			.full-stretch;
+			display: table;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			span {
+				width: 100%;
+				.full-stretch;
+				top: auto;
+				img, h3,h4,h5 {
+					float: left;
+				}
+			}
+			.banner-find-us-on-facebook {
+				width: 100%;
+				.full-stretch;
+				top: auto;
+			}
+			.banner-contact-us {
+				width:100%;
+				.full-stretch;
+				top: auto;
+			}
+			.banner-overlay {
+				width:100%;
+				.full-stretch;
+				top: auto;
+			}
+		}
+	}
+	.banner-well-background {
+		.full-stretch;
+		&.beehive-icon {
+			background-image: url("../images/beehive-icon.jpg");
+		}
+		&.contact-sarah-icon {
+			background-image: url("../images/bee-icon.jpg");
+		}
+		width: 100%;
+		height: 100%;
+		background-repeat: no-repeat;
+		background-size: cover;
+		opacity: 0.5;
+		&:hover {
+			opacity: 0.2;
+		}
+	}
+}

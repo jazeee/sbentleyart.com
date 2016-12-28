@@ -1,0 +1,116 @@
+.art-piece-detail
+	.background-image(
+	)
+		img(
+			ng-src="{{getArtPiecePath(artPiece)}}"
+		)
+	.art-piece-information(
+		ng-style="{transform: translate, '-webkit-transform': translate, '-ms-transform': translate}"
+	)
+		h1.title {{artPiece.name || "No Name"}}
+		h2 {{artPiece.description}}
+		h5 {{artPiece.media}}
+		h5(
+			ng-if="artPiece.widthInInches && artPiece.heightInInches && artPiece.depthInInches"
+		) {{artPiece.widthInInches}}x{{artPiece.heightInInches}}x{{artPiece.depthInInches}} inches
+		.button-actions(
+			ng-show="artPiece.price > 0"
+		)
+			button.btn-primary.show-pricing(
+				ng-click="showPurchase = !showPurchase"
+			)
+				span.price
+					| {{artPiece.price | currency}}
+				span
+					| See Deal Price
+		span(
+			ng-hide="artPiece.price > 0"
+		)
+			| Status: {{artPiece.price}}
+		.facebook-comments
+			fb:comments(
+				href="{{getUrl()}}" 
+				width="100%" 
+				numposts="2" 
+				colorscheme="light"
+			)
+		.button-actions
+			.share-art-piece
+				fb:share-button(
+					href="{{getUrl()}}" 
+					width="100%"
+					layout="button"
+				)
+		deal-overlay(
+			ng-show="isDealOfTheDay(artPiece)"
+		)
+		.art-piece-purchase(
+			ng-show="showPurchase"
+		)
+			h1.title Art Sale
+			h4 You can choose a discount that fits your budget.
+			form.form-horizontal.art-purchase-form
+				.form-group.form-group-lg
+					label.control-label.col-sm-4 Original Price
+					.col-sm-8
+						p.form-control-static
+							| {{originalPrice | currency}}
+				.form-group.form-group-lg(
+					ng-class="{'has-error': !discountPercent || discountPercent <0 || discountPercent > 40}"
+				)
+					label.col-sm-4.control-label Name your % Off
+					.col-sm-8.input-group
+						input.form-control(
+							type="number"
+							min="0"
+							max="40"
+							placeholder="% Savings"
+							ng-model="discountPercent"
+							ng-change="calculateDiscountedPrice()"
+						)
+						span.input-group-addon %
+				.form-group.form-group-lg
+					.col-sm-12
+						.radio
+							label
+								input(
+									type="radio"
+									ng-model="deliveryOption"
+									value="MadisonPickup"
+									ng-change="calculateDiscountedPrice()"
+								) 
+								| I live in Madison WI (No Shipping)
+				.form-group.form-group-lg
+					.col-sm-12
+						.radio
+							label
+								input(
+									type="radio"
+									ng-model="deliveryOption"
+									value="MankatoPickup"
+									ng-change="calculateDiscountedPrice()"
+								) 
+								| I live in Mankato MN and can wait for a few months (No Shipping)
+				.form-group.form-group-lg
+					.col-sm-12
+						.radio
+							label
+								input(
+									type="radio"
+									ng-model="deliveryOption"
+									value="Shipping"
+									ng-change="calculateDiscountedPrice()"
+								) 
+								| I need shipping
+			buy-art-piece(
+				art-piece="artPiece"
+				price="discountedPrice"
+				savings="savings"
+			)
+			.close-button
+				button.close(
+					type='button'
+					aria-hidden='true'
+					ng-click="showPurchase=false"
+				) &times;
+		

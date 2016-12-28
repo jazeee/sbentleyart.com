@@ -1,0 +1,41 @@
+.banner
+	.banner-image-panel
+		.banner-image
+	.banner-highlights
+		.facebook-highlight.banner-highlight
+			a.banner-well(
+				href="https://www.facebook.com/sbentleystudio?ref=hl"
+				target="_blank"
+			)
+				.banner-well-background.beehive-icon
+				.banner-well-overlay
+					img.banner-find-us-on-facebook(src="../images/find-us-on-facebook.svg")
+		.facebook-highlight.banner-highlight
+			a.banner-well(
+				data-toggle='modal', data-target='#contactModal'
+			)
+				.banner-well-background.contact-sarah-icon
+				.banner-well-overlay
+					span
+						img.banner-contact-us(src="../images/contact-sarah-icon.svg")
+		.facebook-highlight.banner-highlight
+			a.banner-well(
+				ng-click="goToArtPiece(randomArtPiece)"
+			)
+				.banner-well-background(
+					ng-style="{'background-image': getLowResPathAsUrl(randomArtPiece)}"
+				)
+				.banner-well-overlay
+					span
+						img.banner-overlay(src="../images/random-art-piece-overlay.svg")
+		.facebook-highlight.banner-highlight
+			a.banner-well(
+				ng-click="goToArtPiece(artDealOfTheDay)"
+			)
+				.banner-well-background(
+					ng-style="{'background-image': artPieceOfTheDayAsUrl}"
+				)
+				.banner-well-overlay
+					span
+						img.banner-overlay(src="../images/sarahs-special.svg")
+			deal-overlay

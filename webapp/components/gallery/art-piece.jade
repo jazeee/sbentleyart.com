@@ -1,0 +1,17 @@
+.art-piece(
+	ng-click="goToArtPiece(artPiece)"
+)
+	h4 {{artPiece.name || "No name"}}
+	.art-piece-image
+		img(
+			ng-src="{{getLowResPath(artPiece)}}"
+			alt="{{artPiece.description}}"
+			ng-click="goToArtPiece(artPiece)"
+		)
+	.art-piece-details-panel
+		button.btn.btn-default.btn-sm.view-art-piece
+			| View
+		.clearfix
+	deal-overlay(
+		ng-show="isDealOfTheDay(artPiece)"
+	)

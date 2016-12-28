@@ -1,0 +1,10 @@
+.col-md-3.col-sm-6
+	.gallery-well(
+		ng-click="goToGallery(gallery)"
+	)
+		.gallery-name
+			h4 {{gallery.name}}
+		.gallery-well-image
+			img(
+				ng-src="images/galleries/{{gallery.filename}}"
+			)

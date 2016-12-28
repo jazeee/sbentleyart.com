@@ -1,0 +1,1 @@
+angular.module('buy-art-piece', [])

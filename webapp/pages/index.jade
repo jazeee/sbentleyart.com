@@ -1,0 +1,19 @@
+doctype
+html(ng-app="webapp" xmlns:fb="http://ogp.me/ns/fb#")
+	head
+		include partials/header.jade
+		include partials/includes.jade
+		include partials/analytics.jade
+		include partials/includes-app.jade
+	body.sbentley-art-site
+		navigation-header
+		section.main-view(ui-view autoscroll='false')
+		social-tags
+		.copyright-disclaimer
+			h6 Copyright &copy; Sarah Bentley. All rights reserved.
+			h6 Copyright and reproduction rights are reserved by the artist.
+			h6 Due to the nature of the art product, all sales are final and non-refundable.
+			h6 Site developed by 
+				a(href="http://www.jazeee.com" target="_blank") Jaz Singh
+		include ../components/site/about.jade
+		include ../components/site/contact.jade

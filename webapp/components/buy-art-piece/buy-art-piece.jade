@@ -1,0 +1,28 @@
+.buy-art-piece-container
+	.savings-summary.discount
+		| Total Discount: ({{savings | currency}})
+	.savings-summary
+		| Price: {{price | currency}} + tax
+	a.btn.btn-default.contact-sarah-to-buy(data-toggle='modal', data-target='#contactModal')
+		span
+			i.fa.fa-envelope.padding-right-5
+			| Contact Sarah to Buy
+	form.buy-art-piece(
+		name="_xclick" 
+		action="https://www.paypal.com/cgi-bin/webscr" 
+		method="post"
+	)
+		input(type="hidden" name="cmd" value="_xclick")
+		input(type="hidden" name="business" value="heysbsorry@yahoo.com")
+		input(type="hidden" name="currency_code" value="USD")
+		input(type="hidden" name="tax_rate" value="5.5")
+		input(type="hidden" name="item_name" value="{{artPiece.name}}")
+		input(type="hidden" name="amount" value="{{price}}")
+		input(type="hidden" name="shopping_url" value="http://www.sbentleyart.com")
+		input(type="hidden" name="cpp_logo_image" value="http://www.sbentleyart.com/images/logo190x60.png")
+		button.btn.btn-default.buy-via-paypal-art-button(
+			ng-disabled="!(price > 0)"
+		)
+			span
+				i.fa.fa-credit-card.padding-right-5
+				| PayPal {{price | currency}} + tax

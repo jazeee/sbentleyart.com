@@ -1,0 +1,24 @@
+header.navbar.navbar-fixed-top.navbar-default.navbar-inverse(role='navigation')
+	.navbar-header
+		button.navbar-toggle(
+			type='button'
+			data-toggle='collapse'
+			data-target='.navbar-ex1-collapse'
+		)
+			span.sr-only Toggle navigation
+			span.icon-bar
+			span.icon-bar
+			span.icon-bar
+		a.navbar-brand(href='#') S Bentley Studio
+	.collapse.navbar-collapse.navbar-ex1-collapse
+		ul.nav.navbar-nav
+			li
+				a(href='#/galleries') Galleries
+			li(ng-show='currentRoute!=undefined')
+				a(ng-href='#/galleries/{{currentRoute}}')
+				| {{currentRoute}}
+		ul.nav.navbar-nav.navbar-right
+			li
+				a(data-toggle='modal', data-target='#aboutModal') About
+			li
+				a(data-toggle='modal', data-target='#contactModal') Contact

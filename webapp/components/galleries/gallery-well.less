@@ -1,0 +1,32 @@
+@gallery-well-background: #446e9b;
+
+.gallery-well {
+	min-width: 150px;
+	min-height: 175px;
+	margin: 25px;
+	
+	border: 2px solid #395c82;
+	border-radius: 8px;
+	.background-linear-gradient(@gallery-well-background);
+	color: white;
+	padding: 5px;
+	cursor: pointer;
+	&:hover {
+		box-shadow: 1px 1px 5px 3px @gallery-well-background;
+	}
+	.gallery-name{
+		height: 3em;
+		h3,h4 {
+			text-align: center;
+			color: #eee;
+		}
+	}
+	.gallery-well-image {
+		width: 100%;
+		position: relative;
+		img {
+			border-radius: 5px;
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,44 @@
+.art-piece {
+	min-width: 150px;
+	min-height: 175px;
+	margin: 25px;
+	position: relative;
+	
+	border: 2px solid #395c82;
+	border-radius: 8px;
+	.background-linear-gradient(@gallery-well-background);
+	color: white;
+	padding: 5px;
+	cursor: pointer;
+	&:hover {
+		box-shadow: 1px 1px 5px 3px @gallery-well-background;
+	}
+	
+	h3,h4 {
+		text-align: center;
+		color: #eee;
+		height: 2.2em;
+	}
+	.art-piece-image {
+		width: 100%;
+		position: relative;
+		img {
+			display: table;
+			border-radius: 5px;
+			height: 200px;
+			max-width: 100%;
+			margin: auto;
+		}
+	}
+	
+	.art-piece-details-panel {
+		padding-top: 15px;
+		position: relative;
+		.view-art-piece {
+			width: 100%;
+		}
+		.buy-art-piece {
+			float: right;
+		}
+	}
+}
