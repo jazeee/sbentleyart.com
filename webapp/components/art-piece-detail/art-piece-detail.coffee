@@ -51,7 +51,9 @@ angular.module('art-piece-detail').directive("artPieceDetail"
 				scope.mouseOffset.y = offsetY * 10
 
 			scope.getArtPiecePath = (artPiece) ->
-				'images/' + scope.galleryId + '/' + artPiece.filename
+				if /\//.test artPiece.filename
+					return "images/#{artPiece.filename}"
+				"images/#{scope.galleryId}/#{artPiece.filename}"
 
 			scope.getArtPiecePathAsUrl = (artPiece) ->
 				'url("../' + scope.getArtPiecePath(artPiece) + '")'

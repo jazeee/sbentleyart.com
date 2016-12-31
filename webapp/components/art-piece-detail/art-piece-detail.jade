@@ -21,6 +21,7 @@
 			)
 				span.price
 					| {{artPiece.price | currency}}
+		.status(ng-show="artPiece.status") Status: {{artPiece.status}}
 		a.facebook-highlight.banner-button(
 			ng-click="goToArtPiece(randomArtPiece)"
 		)

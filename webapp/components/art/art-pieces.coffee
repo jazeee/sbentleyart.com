@@ -3,7 +3,7 @@ angular.module('art').constant('artPiecesResource'
 			"name" : "Acorn",
 			"galleryId" : "Ugly_Bugs",
 			"filename" : "01Acorn_oil_and_encaustic_Sold.jpg",
-			"price" : "Sold"
+			"status" : "Sold"
 			widthInInches: 26
 			heightInInches: 36
 			depthInInches: 4
@@ -13,7 +13,7 @@ angular.module('art').constant('artPiecesResource'
 			"name" : "Hive",
 			"galleryId" : "Ugly_Bugs",
 			"filename" : "02Hive_oil_and_encaustic_Sold.jpg",
-			"price" : "Sold",
+			"status" : "Sold"
 			widthInInches: 26
 			heightInInches: 36
 			depthInInches: 4
@@ -133,7 +133,7 @@ angular.module('art').constant('artPiecesResource'
 			"name" : "Fireflys",
 			"galleryId" : "Ugly_Bugs",
 			"filename" : "12Fireflys_oil_and_encaustic_Sold.JPG",
-			"price" : "Sold",
+			"status" : "Sold"
 			"tags" : ""
 		},{
 			"name" : "Husk",
@@ -193,11 +193,47 @@ angular.module('art').constant('artPiecesResource'
 			media: "Oil and encaustic on canvas with wood framing"
 			"tags" : ""
 		},{
+			"name" : "Tentacles Lurking in Woods",
+			"description" : "What lies within the mist, is it safe?",
+			"galleryId" : "Beautiful_Creatures",
+			"filename" : "2016-05-tentacles-lurking-in-woods-oil-and-encaustic.jpg",
+			"price" : "700"
+			"tags" : "",
+			widthInInches: 26
+			heightInInches: 36
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : true
+		},{
+			"name" : "Sea Creature Battle with Airship",
+			"description" : "Fantastic battle between sea creature and airship.",
+			"galleryId" : "Beautiful_Creatures",
+			"filename" : "2016-06-sea-creature-battle-with-airship-oil-and-encaustic.jpg",
+			"price" : "700"
+			"tags" : "",
+			widthInInches: 26
+			heightInInches: 36
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : true
+		},{
+			"name" : "Bird Creature with Babies",
+			"description" : "Abstract bird creature protecting babies within.",
+			"galleryId" : "Beautiful_Creatures",
+			"filename" : "2016-07-bird-creature-with-babies-oil-and-encaustic.jpg",
+			"price" : "700"
+			"tags" : "",
+			widthInInches: 26
+			heightInInches: 36
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : true
+		},{
 			"name" : "Squid and Octopus",
 			"description" : "The epic tale of squid and octopus in deep sea battle.",
 			"galleryId" : "Beautiful_Creatures",
 			"filename" : "squid-and-octopus-1.jpg",
-			"price" : "Sold",
+			"status" : "Sold"
 			"tags" : "",
 			widthInInches: 26
 			heightInInches: 24
@@ -209,7 +245,7 @@ angular.module('art').constant('artPiecesResource'
 			"description" : "The epic tale of squid and octopus in deep sea battle.",
 			"galleryId" : "Beautiful_Creatures",
 			"filename" : "squid-and-octopus-2.jpg",
-			"price" : "Sold",
+			"status" : "Sold"
 			"tags" : "",
 			widthInInches: 26
 			heightInInches: 24
@@ -378,7 +414,7 @@ angular.module('art').constant('artPiecesResource'
 			"name" : "Sea Creature",
 			"galleryId" : "Beautiful_Creatures",
 			"filename" : "13SeaCreature_oil_and_encaustic.jpg",
-			"price" : "500",
+			"price" : "394.74",
 			"tags" : "",
 			widthInInches: 24
 			heightInInches: 26
@@ -793,15 +829,37 @@ angular.module('art').constant('artPiecesResource'
 			depthInInches: 4
 			media: "Oil and encaustic on canvas with wood framing"
 			"isFeatured" : false
+		},{
+			"name" : "Dahlias",
+			"galleryId" : "flowers",
+			"filename" : "art-pieces/flowers/2016-01-dahlias-oil-and-encaustic.jpg",
+			"status" : "Sold",
+			"tags" : "",
+			widthInInches: 24
+			heightInInches: 26
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : true
+		},{
+			"name" : "Gladiolus",
+			"galleryId" : "flowers",
+			"filename" : "art-pieces/flowers/2016-02-glads-oil-and-encaustic.jpg",
+			"status" : "Sold",
+			"tags" : "",
+			widthInInches: 24
+			heightInInches: 26
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : false
 		}
 	]
 )
 angular.module('art').service('ArtPiecesService'
 (artPiecesResource, DateUtil, $state) ->
-	discountPercent = 0.5
+	discountPercent = 0.62
 	for artPiece in artPiecesResource
 		if artPiece.price?
-			artPiece.price *= discountPercent
+			artPiece.price *= (1-discountPercent)
 	class ArtPiecesService
 		constructor: ->
 			@artDealOfTheDay = @getDealOfTheDay()
@@ -842,6 +900,8 @@ angular.module('art').service('ArtPiecesService'
 			artPiecesResource[index]
 
 		getLowResPath: (artPiece) =>
+			if /\//.test artPiece.filename
+				return "images/LowRes/#{artPiece.filename}"
 			"images/LowRes/#{artPiece.galleryId}LowRes/#{artPiece.filename}"
 
 		getLowResPathAsUrl: (artPiece) =>
@@ -853,7 +913,7 @@ angular.module('art').service('ArtPiecesService'
 				@randomArtPiece = @getRandomArtPiece()
 			$state.go("artPieceDetail"
 				galleryId: artPiece.galleryId
-				artPieceId: artPiece.filename
+				artPieceId: artPiece.filename.replace /\//g, ">"
 			)
 
 		isDealOfTheDay: (artPiece) =>
