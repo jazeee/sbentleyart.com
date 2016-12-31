@@ -17,6 +17,8 @@ angular.module('art-piece-detail').directive("artPieceDetail"
 
 			scope.randomArtPiece = ArtPiecesService.randomArtPiece
 
+			scope.nextArtPiece = ArtPiecesService.getArtPieceByIndex scope.artPiece.nextIndex
+
 			scope.getLowResPathAsUrl = ArtPiecesService.getLowResPathAsUrl
 
 			scope.artPieceOfTheDayAsUrl = ArtPiecesService.getLowResPathAsUrl(ArtPiecesService.artDealOfTheDay)

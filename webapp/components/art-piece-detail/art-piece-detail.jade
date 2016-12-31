@@ -22,16 +22,29 @@
 				span.price
 					| {{artPiece.price | currency}}
 		.status(ng-show="artPiece.status") Status: {{artPiece.status}}
-		a.facebook-highlight.banner-button(
-			ng-click="goToArtPiece(randomArtPiece)"
-		)
-			.banner-well
-				.banner-well-background(
-					ng-style="{'background-image': getLowResPathAsUrl(randomArtPiece)}"
+		.container-fluid
+			.col-md-6
+				a.facebook-highlight.banner-button(
+					ng-click="goToArtPiece(randomArtPiece)"
 				)
-				.banner-well-overlay
-					span
-						img.banner-overlay(src="../images/random-art-piece-overlay.svg")
+					.banner-well
+						.banner-well-background(
+							ng-style="{'background-image': getLowResPathAsUrl(randomArtPiece)}"
+						)
+						.banner-well-overlay
+							span
+								img.banner-overlay(src="../images/random-art-piece-overlay.svg")
+			.col-md-6
+				a.facebook-highlight.banner-button.col-md-6(
+					ng-click="goToArtPiece(nextArtPiece)"
+				)
+					.banner-well
+						.banner-well-background(
+							ng-style="{'background-image': getLowResPathAsUrl(nextArtPiece)}"
+						)
+						.banner-well-overlay
+							span
+								img.banner-overlay(src="../images/next-art-piece-overlay.svg")
 		.facebook-comments
 			fb:comments(
 				href="{{getUrl()}}" 

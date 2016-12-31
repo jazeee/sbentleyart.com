@@ -830,18 +830,7 @@ angular.module('art').constant('artPiecesResource'
 			media: "Oil and encaustic on canvas with wood framing"
 			"isFeatured" : false
 		},{
-			"name" : "Dahlias",
-			"galleryId" : "flowers",
-			"filename" : "art-pieces/flowers/2016-01-dahlias-oil-and-encaustic.jpg",
-			"status" : "Sold",
-			"tags" : "",
-			widthInInches: 24
-			heightInInches: 26
-			depthInInches: 4
-			media: "Oil and encaustic on canvas with wood framing"
-			"isFeatured" : true
-		},{
-			"name" : "Gladiolus",
+			"name" : "Gladiolus in Bucket",
 			"galleryId" : "flowers",
 			"filename" : "art-pieces/flowers/2016-02-glads-oil-and-encaustic.jpg",
 			"status" : "Sold",
@@ -851,15 +840,82 @@ angular.module('art').constant('artPiecesResource'
 			depthInInches: 4
 			media: "Oil and encaustic on canvas with wood framing"
 			"isFeatured" : false
+		},{
+			"name" : "Gladiolus in Clay Pot",
+			"galleryId" : "flowers",
+			"filename" : "art-pieces/flowers/2016-03-glads-oil-and-encaustic.jpg",
+			"price" : "500",
+			"tags" : "",
+			widthInInches: 24
+			heightInInches: 32
+			depthInInches: 1
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : false
+		},{
+			"name" : "Flowers on Walkway at Tolman Terrace",
+			"galleryId" : "flowers",
+			"filename" : "art-pieces/flowers/2016-04-tolman-terrace-entry-oil-and-encaustic.jpg",
+			"status" : "Personal",
+			"tags" : "",
+			widthInInches: 24
+			heightInInches: 26
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : false
+		},{
+			"name" : "Sunflowers in Bucket",
+			"galleryId" : "flowers",
+			"filename" : "art-pieces/flowers/2016-05-sunflowers-in-bucket-oil-and-encaustic.jpg",
+			"status" : "Sold",
+			"tags" : "",
+			widthInInches: 24
+			heightInInches: 26
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : false
+		},{
+			"name" : "Flowers in Bucket",
+			"galleryId" : "flowers",
+			"filename" : "art-pieces/flowers/2016-06-flowers-in-bucket-oil-and-encaustic.jpg",
+			"price" : "700",
+			"tags" : "",
+			widthInInches: 24
+			heightInInches: 36
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : false
+		},{
+			"name" : "Arachnid Creature",
+			"galleryId" : "felting",
+			"filename" : "art-pieces/felting/2016-felt-01-arachnid-creature.jpg",
+			"price" : "78.95",
+			"tags" : "",
+			widthInInches: 8
+			heightInInches: 8
+			depthInInches: .25
+			media: "Felt"
+			"isFeatured" : true
+		},{
+			"name" : "Haunting Winged Creature",
+			"galleryId" : "felting",
+			"filename" : "art-pieces/felting/2016-felt-02-haunting-winged-creature.jpg",
+			"price" : "78.95",
+			"tags" : "",
+			widthInInches: 8
+			heightInInches: 8
+			depthInInches: .25
+			media: "Felt"
+			"isFeatured" : false
 		}
 	]
 )
 angular.module('art').service('ArtPiecesService'
 (artPiecesResource, DateUtil, $state) ->
 	discountPercent = 0.62
-	for artPiece in artPiecesResource
+	for artPiece, index in artPiecesResource
 		if artPiece.price?
 			artPiece.price *= (1-discountPercent)
+		artPiece.nextIndex = (index + 1) % artPiecesResource.length
 	class ArtPiecesService
 		constructor: ->
 			@artDealOfTheDay = @getDealOfTheDay()
@@ -878,6 +934,9 @@ angular.module('art').service('ArtPiecesService'
 				if artPiece.galleryId == galleryId && artPiece.filename == artPieceId
 					return artPiece
 
+		getArtPieceByIndex: (index) ->
+			artPiecesResource[index]
+
 		getArtPiecesForSale: (galleryId) ->
 			artPieces = []
 			for artPiece in artPiecesResource
@@ -895,9 +954,12 @@ angular.module('art').service('ArtPiecesService'
 			#console.log "Deal of the Day: ", artDealOfTheDay
 			artDealOfTheDay
 
-		getRandomArtPiece: ->
+		getRandomArtPiece: =>
 			index = Math.floor(Math.random() * artPiecesResource.length)
-			artPiecesResource[index]
+			artPiece = artPiecesResource[index]
+			return artPiece if artPiece.galleryId != "Gallery_Views"
+			console.log "Ignoring random Gallery image"
+			return @getRandomArtPiece()
 
 		getLowResPath: (artPiece) =>
 			if /\//.test artPiece.filename
