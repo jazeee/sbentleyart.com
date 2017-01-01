@@ -217,12 +217,24 @@ angular.module('art').constant('artPiecesResource'
 			media: "Oil and encaustic on canvas with wood framing"
 			"isFeatured" : true
 		},{
-			"name" : "Bird Creature with Babies",
-			"description" : "Abstract bird creature protecting babies within.",
-			"galleryId" : "Beautiful_Creatures",
-			"filename" : "2016-07-bird-creature-with-babies-oil-and-encaustic.jpg",
+			"name" : "Jelly Fish"
+			"description" : "Abstract jelly."
+			"galleryId" : "Beautiful_Creatures"
+			"filename" : "2016-08-jelly-fish-oil-and-encaustic.jpg"
 			"price" : "700"
 			"tags" : "",
+			widthInInches: 26
+			heightInInches: 36
+			depthInInches: 4
+			media: "Oil and encaustic on canvas with wood framing"
+			"isFeatured" : true
+		},{
+			"name" : "Bird Creature with Babies"
+			"description" : "Abstract bird creature protecting babies within."
+			"galleryId" : "Beautiful_Creatures"
+			"filename" : "2016-07-bird-creature-with-babies-oil-and-encaustic.jpg"
+			"price" : "700"
+			"tags" : ""
 			widthInInches: 26
 			heightInInches: 36
 			depthInInches: 4
