@@ -218,7 +218,7 @@ angular.module('art').constant('artPiecesResource'
 			"isFeatured" : true
 		},{
 			"name" : "Jelly Fish"
-			"description" : "Abstract jelly."
+			"description" : "Abstract jelly with textural circular elements."
 			"galleryId" : "Beautiful_Creatures"
 			"filename" : "2016-08-jelly-fish-oil-and-encaustic.jpg"
 			"price" : "700"
@@ -898,6 +898,7 @@ angular.module('art').constant('artPiecesResource'
 			"isFeatured" : false
 		},{
 			"name" : "Arachnid Creature",
+			description: "An exploration of imaginative creations in felt cloth."
 			"galleryId" : "felting",
 			"filename" : "art-pieces/felting/2016-felt-01-arachnid-creature.jpg",
 			"price" : "78.95",
@@ -909,6 +910,7 @@ angular.module('art').constant('artPiecesResource'
 			"isFeatured" : true
 		},{
 			"name" : "Haunting Winged Creature",
+			description: "An exploration of imaginative creations in felt cloth."
 			"galleryId" : "felting",
 			"filename" : "art-pieces/felting/2016-felt-02-haunting-winged-creature.jpg",
 			"price" : "78.95",
@@ -931,7 +933,7 @@ angular.module('art').service('ArtPiecesService'
 	class ArtPiecesService
 		constructor: ->
 			@artDealOfTheDay = @getDealOfTheDay()
-			@dealOfTheDayDiscountInHundredsPercent = 40
+			@dealOfTheDayDiscountInHundredsPercent = 20
 			@randomArtPiece = @getRandomArtPiece()
 
 		getGalleryArtPieces: (galleryId) ->

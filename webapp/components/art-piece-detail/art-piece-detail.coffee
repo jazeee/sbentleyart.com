@@ -35,7 +35,7 @@ angular.module('art-piece-detail').directive("artPieceDetail"
 				{discountPercent, deliveryOption, originalPrice} = scope
 				discountPercent ?= 0
 				discountPercent = Math.max(0, discountPercent)
-				discountPercent = Math.min(40, discountPercent)
+				discountPercent = Math.min(20, discountPercent)
 				price = originalPrice * ((100 - discountPercent) / 100)
 				scope.discountedPrice = price
 				scope.savings = originalPrice - price

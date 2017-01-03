@@ -74,14 +74,14 @@
 						p.form-control-static
 							| {{originalPrice | currency}}
 				.form-group.form-group-lg(
-					ng-class="{'has-error': discountPercent == undefined || discountPercent <0 || discountPercent > 40}"
+					ng-class="{'has-error': discountPercent == undefined || discountPercent <0 || discountPercent > 20}"
 				)
 					label.col-sm-4.control-label Name your % Off
 					.col-sm-8.input-group
 						input.form-control(
 							type="number"
 							min="0"
-							max="40"
+							max="20"
 							placeholder="% Savings"
 							ng-model="discountPercent"
 							ng-change="calculateDiscountedPrice()"
